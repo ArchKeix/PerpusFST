@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PerpusFST - Pusat Akses Pengetahuan Sains & Teknologi</title>
+  
+  <!-- Tailwind CSS & Forms Plugin -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f4bf00', // Gold UIN
+            navy: {
+              800: '#161c27',
+              900: '#0d131f',
+              950: '#080d16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 flex flex-col min-h-screen">
+
+  <!-- ==========================================
+       TOP NAVBAR
+       ========================================== -->
+  <nav id="top-navbar" class="fixed top-0 left-0 w-full bg-primary z-50 shadow-md hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <!-- Brand logo -->
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('dashboard')">
+          <!-- Logo FST -->
+          <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center p-1 shadow-inner">
+            <img src="logofst.png" alt="Logo FST" class="w-full h-full object-contain">
+          </div>
+          <span class="font-bold text-lg text-slate-900 tracking-tight">PerpusFST</span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex space-x-8 h-full items-center">
+          <a href="#" class="nav-link text-slate-900 text-sm font-semibold h-full flex items-center px-1" data-view="dashboard">Dashboard</a>
+          <a href="#" class="nav-link text-slate-900 text-sm font-semibold h-full flex items-center px-1" data-view="koleksi">Koleksi</a>
+          <a href="#" class="nav-link text-slate-900 text-sm font-semibold h-full flex items-center px-1" data-view="pinjaman">Pinjaman</a>
+        </div>
+
+        <!-- Right controls (Notifications & Profile) -->
+        <div class="flex items-center gap-4">
+          <!-- Notifications Bell -->
+          <button class="relative p-1 text-slate-900 hover:bg-black/5 rounded-full transition-colors" onclick="showToast('Tidak ada notifikasi baru', 'info')">
+            <span class="material-symbols-outlined text-[22px]">notifications</span>
+            <span class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-600 border-2 border-primary rounded-full"></span>
+          </button>
+
+          <!-- User Profile -->
+          <button id="profile-nav-btn" class="flex items-center gap-2 hover:bg-black/5 px-2.5 py-1.5 rounded-lg transition-all">
+            <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm">
+              KA
+            </div>
+            <span id="profile-name" class="text-sm font-bold text-slate-900 hidden sm:inline">Keino Aflah</span>
+            <span class="material-symbols-outlined text-slate-900 text-sm hidden sm:inline">expand_more</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       MAIN APP VIEWS
+       ========================================== -->
+  <main class="flex-grow pt-16">
+    <div class="view-container">
+
+      <!-- 1. LOGIN VIEW -->
+      <div id="login-view" class="app-view">
+        <div class="min-h-screen flex flex-col md:flex-row">
+          
+          <!-- Left Banner (60%) -->
+          <div class="w-full md:w-3/5 login-left-bg text-white p-8 md:p-16 flex flex-col justify-between relative min-h-[400px] md:min-h-screen">
+            <!-- Glass Overlay Card -->
+            <div class="absolute inset-0 bg-black/40 z-0"></div>
+            
+            <div class="relative z-10 flex items-center gap-2">
+              <!-- Logo FST -->
+              <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center p-0.5 shadow-inner">
+                <img src="logofst.png" alt="Logo FST" class="w-full h-full object-contain">
+              </div>
+              <span class="font-extrabold text-sm tracking-widest text-primary">PERPUSFST</span>
+            </div>
+            
+            <div class="relative z-10 my-auto py-12 md:py-24 max-w-xl">
+              <h1 class="font-serif text-3xl md:text-5xl font-bold leading-tight tracking-wide text-white drop-shadow-md">
+                Pusat Akses Pengetahuan Fakultas Sains dan Teknologi
+              </h1>
+              <p class="text-sm md:text-base text-slate-300 mt-4 leading-relaxed font-sans drop-shadow-sm">
+                Masuk ke akun PerpusFST dan jelajahi 200+ sumber ilmu pengetahuan.
+              </p>
+              
+              <!-- Left stats badges -->
+              <div class="flex items-center gap-6 mt-8">
+                <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+                  <span class="material-symbols-outlined text-primary text-[20px]">menu_book</span>
+                  <div>
+                    <div class="text-sm font-bold">124+</div>
+                    <div class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">BOOKS</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+                  <span class="material-symbols-outlined text-primary text-[20px]">science</span>
+                  <div>
+                    <div class="text-sm font-bold">100+</div>
+                    <div class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">JOURNALS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="relative z-10 text-xs text-slate-400">
+              © 2026 Faculty of Science and Technology, UIN Syarif Hidayatullah Jakarta.
+            </div>
+          </div>
+
+          <!-- Right Login Form (40%) -->
+          <div class="w-full md:w-2/5 bg-white flex flex-col justify-center px-8 py-12 md:p-16">
+            <div class="max-w-md w-full mx-auto">
+              <!-- Logo FST -->
+              <div class="w-20 h-20 mx-auto rounded-full bg-white flex items-center justify-center p-1 shadow-md mb-6 border border-slate-100">
+                <img src="logofst.png" alt="Logo FST" class="w-full h-full object-contain">
+              </div>
+              
+              <h2 class="text-2xl font-bold text-slate-800 text-center font-sans">Selamat Datang</h2>
+              <p class="text-xs text-slate-500 text-center mt-1">Silakan masuk untuk accessing layanan.</p>
+              
+              <form id="login-form" class="mt-8 space-y-6">
+                <!-- Email field -->
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">EMAIL</label>
+                  <div class="form-input-icon">
+                    <span class="material-symbols-outlined">person</span>
+                    <input id="login-email" type="email" placeholder="Masukkan akun email kampus" class="w-full border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl py-3 text-sm text-slate-700 placeholder-slate-400 font-sans" value="keino@uinjkt.ac.id" required />
+                  </div>
+                </div>
+                
+                <!-- Password field -->
+                <div>
+                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">PASSWORD</label>
+                  <div class="form-input-icon">
+                    <span class="material-symbols-outlined">lock</span>
+                    <input id="login-password" type="password" placeholder="Masukkan password" class="w-full border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl py-3 text-sm text-slate-700 placeholder-slate-400 font-sans" value="••••••••" required />
+                  </div>
+                </div>
+                
+                <!-- Extra options -->
+                <div class="flex items-center justify-between text-xs">
+                  <label class="flex items-center gap-2 cursor-pointer select-none text-slate-500">
+                    <input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary h-4 w-4 accent-primary" checked />
+                    Ingat Saya
+                  </label>
+                  <a href="#" class="text-blue-600 hover:underline font-bold" onclick="showToast('Silakan hubungi administrator IT Fakultas.', 'warning')">Lupa Password?</a>
+                </div>
+                
+                <!-- Submit -->
+                <button type="submit" class="w-full bg-white hover:bg-slate-50 border border-slate-200 text-blue-btn py-3.5 rounded-xl font-bold text-sm tracking-wide transition-all shadow-md active:scale-98">
+                  Masuk Sekarang
+                </button>
+              </form>
+              
+              <div class="text-center text-xs text-slate-500 mt-8">
+                Belum memiliki akun? <a href="#" class="text-blue-600 hover:underline font-bold" onclick="showToast('Silakan hubungi Bantuan Akademik FST.', 'info')">Bantuan Aktivasi</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. DASHBOARD VIEW -->
+      <div id="dashboard-view" class="app-view">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-800">Selamat Datang di PerpusFST, Keino Aflah !</h2>
+            <p class="text-xs text-slate-500 mt-1">Jelajahi dan nikmati semua layanan</p>
+          </div>
+          
+          <!-- Inner content rendered dynamically -->
+          <div id="dashboard-content"></div>
+        </div>
+      </div>
+
+      <!-- 3. KOLEKSI VIEW -->
+      <div id="koleksi-view" class="app-view">
+        <!-- Big Search Banner (Image 3 Top) -->
+        <div class="bg-gradient-to-r from-blue-900 to-indigo-950 text-white py-14 px-4 shadow-sm relative overflow-hidden">
+          <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white_10% via-transparent_80%"></div>
+          <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h1 class="font-serif text-3xl md:text-4xl font-bold tracking-wide">Koleksi Perpustakaan</h1>
+            <p class="text-xs text-slate-300 mt-2 tracking-widest uppercase font-bold">Temukan berbagai buku dan jurnal ...</p>
+            
+            <!-- Search bar -->
+            <div class="flex items-center gap-2 bg-white p-2 rounded-xl shadow-lg mt-6 border border-white/10 max-w-2xl mx-auto text-slate-800">
+              <span class="material-symbols-outlined text-slate-400 pl-2">search</span>
+              <input id="collection-search-input" type="text" placeholder="Cari berdasarkan judul, tahun, dan penulis..." class="w-full border-none focus:ring-0 text-sm py-2 bg-transparent placeholder-slate-400" />
+              <button id="main-search-btn" class="bg-primary hover:bg-primary-hover active:scale-95 text-slate-900 px-6 py-2 rounded-lg font-bold text-xs tracking-wider uppercase transition-all shadow-md">
+                Cari Koleksi
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar Filters -->
+            <div class="lg:col-span-1">
+              <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                <div class="flex justify-between items-center mb-5 pb-3 border-b border-slate-100">
+                  <h3 class="font-bold text-slate-800 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-[18px]">filter_alt</span> Filter
+                  </h3>
+                  <button class="text-xs text-amber-600 font-bold hover:underline" onclick="document.querySelectorAll('.filter-type-checkbox').forEach(cb=>cb.checked=false); document.getElementById('filter-author').value=''; document.getElementById('filter-year-from').value=''; document.getElementById('filter-year-to').value=''; appState.filters= {search:'',types:[],author:'',yearFrom:'',yearTo:''}; saveState(); renderKoleksi(); showToast('Filter dibersihkan', 'info');">
+                    Reset
+                  </button>
+                </div>
+                
+                <!-- Type filters -->
+                <div class="mb-6">
+                  <label class="block text-[10px] font-extrabold tracking-wider text-slate-400 uppercase mb-3">Tipe Koleksi</label>
+                  <div class="space-y-2.5">
+                    <label class="flex items-center gap-2.5 text-xs text-slate-600 cursor-pointer select-none">
+                      <input type="checkbox" value="E-Book" class="filter-type-checkbox rounded border-slate-300 text-primary focus:ring-primary h-4.5 w-4.5" />
+                      E-Book
+                    </label>
+                    <label class="flex items-center gap-2.5 text-xs text-slate-600 cursor-pointer select-none">
+                      <input type="checkbox" value="Buku Fisik" class="filter-type-checkbox rounded border-slate-300 text-primary focus:ring-primary h-4.5 w-4.5" />
+                      Buku Fisik
+                    </label>
+                    <label class="flex items-center gap-2.5 text-xs text-slate-600 cursor-pointer select-none">
+                      <input type="checkbox" value="Jurnal" class="filter-type-checkbox rounded border-slate-300 text-primary focus:ring-primary h-4.5 w-4.5" />
+                      Jurnal
+                    </label>
+                  </div>
+                </div>
+                
+                <!-- Author filter -->
+                <div class="mb-6">
+                  <label class="block text-[10px] font-extrabold tracking-wider text-slate-400 uppercase mb-2">Nama Penulis</label>
+                  <input id="filter-author" type="text" placeholder="Cari nama penulis..." class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-xs text-slate-700 focus:border-primary focus:ring-primary" />
+                </div>
+                
+                <!-- Year filter -->
+                <div class="mb-6">
+                  <label class="block text-[10px] font-extrabold tracking-wider text-slate-400 uppercase mb-2">Tahun Publikasi</label>
+                  <div class="flex gap-2 items-center">
+                    <input id="filter-year-from" type="number" placeholder="From" class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-2 text-xs text-slate-700 text-center focus:border-primary focus:ring-primary" />
+                    <span class="text-xs text-slate-400 font-bold">-</span>
+                    <input id="filter-year-to" type="number" placeholder="To" class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-2 text-xs text-slate-700 text-center focus:border-primary focus:ring-primary" />
+                  </div>
+                </div>
+                
+                <!-- Apply Button -->
+                <button id="apply-filter-btn" class="w-full bg-blue-btn hover:bg-blue-btn-hover active:scale-95 text-white py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all">
+                  Terapkan Filter
+                </button>
+              </div>
+            </div>
+            
+            <!-- Book listings -->
+            <div class="lg:col-span-3">
+              <div class="flex justify-between items-center mb-6">
+                <span id="results-count" class="text-xs font-bold text-slate-500">Showing results...</span>
+              </div>
+              
+              <!-- Cards Grid -->
+              <div id="koleksi-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+              
+              <!-- Pagination (Image 3 bottom) -->
+              <div class="flex items-center justify-center gap-1.5 mt-12 py-4 border-t border-slate-100 flex-wrap">
+                <button class="w-8 h-8 rounded border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors" onclick="showToast('Sudah berada di halaman pertama', 'info')">
+                  <span class="material-symbols-outlined text-sm">chevron_left</span>
+                </button>
+                <button class="w-8 h-8 rounded bg-primary text-slate-900 font-bold text-xs flex items-center justify-center">1</button>
+                <button class="w-8 h-8 rounded border border-slate-200 hover:bg-slate-50 text-xs font-bold flex items-center justify-center" onclick="showToast('Membuka halaman 2...', 'info')">2</button>
+                <button class="w-8 h-8 rounded border border-slate-200 hover:bg-slate-50 text-xs font-bold flex items-center justify-center" onclick="showToast('Membuka halaman 3...', 'info')">3</button>
+                <span class="text-slate-400 text-xs px-1">...</span>
+                <button class="w-8 h-8 rounded border border-slate-200 hover:bg-slate-50 text-xs font-bold flex items-center justify-center" onclick="showToast('Membuka halaman terakhir...', 'info')">135</button>
+                <button class="w-8 h-8 rounded border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors" onclick="showToast('Membuka halaman berikutnya...', 'info')">
+                  <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. BOOK DETAIL VIEW -->
+      <div id="detail-view" class="app-view">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          
+          <!-- Inner content rendered dynamically -->
+          <div id="detail-content"></div>
+          
+        </div>
+      </div>
+
+      <!-- 5. PINJAMAN MY VIEW -->
+      <div id="pinjaman-view" class="app-view">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="mb-8 border-b border-slate-100 pb-5">
+            <h2 class="text-2xl font-bold text-slate-800">Peminjaman</h2>
+            <p class="text-xs text-slate-500 mt-1">Pantau aktivitas literasi Anda di Fakultas Sains dan Teknologi.</p>
+          </div>
+          
+          <!-- Section 1: Active borrowed books -->
+          <div class="mb-10">
+            <div class="flex justify-between items-center mb-5 pb-2 border-b border-slate-55">
+              <h3 class="text-sm font-extrabold tracking-wider text-slate-400 uppercase flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-slate-400">menu_book</span> Buku Dipinjam
+              </h3>
+              <span id="active-loans-count" class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full">3 Buku Aktif</span>
+            </div>
+            
+            <!-- Cards list -->
+            <div id="active-loans-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+          </div>
+          
+          <!-- Section 2: Borrowing History Table (Image 5 bottom) -->
+          <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <h3 class="text-sm font-extrabold tracking-wider text-slate-400 uppercase flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-slate-400">history</span> Riwayat Peminjaman
+              </h3>
+              
+              <!-- Filter / sort controls -->
+              <div class="flex gap-2">
+                <button class="border border-slate-200 hover:bg-slate-50 px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 flex items-center gap-1 bg-white cursor-pointer active:scale-95 transition-all" onclick="showToast('Membuka Filter Riwayat...', 'info')">
+                  <span class="material-symbols-outlined text-xs">filter_list</span> Filter
+                </button>
+                <button class="border border-slate-200 hover:bg-slate-50 px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 flex items-center gap-1 bg-white cursor-pointer active:scale-95 transition-all" onclick="showToast('Mengubah Urutan Riwayat...', 'info')">
+                  <span class="material-symbols-outlined text-xs">sort</span> Terbaru
+                </button>
+              </div>
+            </div>
+            
+            <!-- History Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                    <th class="px-6 py-3.5">JUDUL BUKU</th>
+                    <th class="px-6 py-3.5">TANGGAL PINJAM</th>
+                    <th class="px-6 py-3.5">TANGGAL KEMBALI</th>
+                    <th class="px-6 py-3.5">STATUS</th>
+                  </tr>
+                </thead>
+                <tbody id="history-table-body" class="divide-y divide-slate-100"></tbody>
+              </table>
+            </div>
+            
+            <!-- Table Pagination -->
+            <div class="p-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+              <span>Menampilkan 4 dari 42 riwayat</span>
+              <div class="flex items-center gap-1">
+                <button class="w-7 h-7 rounded border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50" onclick="showToast('Sudah berada di halaman pertama', 'info')">
+                  <span class="material-symbols-outlined text-xs">chevron_left</span>
+                </button>
+                <button class="w-7 h-7 rounded bg-primary text-slate-900 font-bold text-xs flex items-center justify-center">1</button>
+                <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50 font-bold text-xs flex items-center justify-center" onclick="showToast('Membuka riwayat halaman 2...', 'info')">2</button>
+                <button class="w-7 h-7 rounded border border-slate-200 hover:bg-slate-50 font-bold text-xs flex items-center justify-center" onclick="showToast('Membuka riwayat halaman 3...', 'info')">3</button>
+                <button class="w-7 h-7 rounded border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50" onclick="showToast('Membuka riwayat halaman berikutnya...', 'info')">
+                  <span class="material-symbols-outlined text-xs">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================
+       GLOBAL FOOTER
+       ========================================== -->
+  <footer class="bg-white border-t border-slate-100 py-10 mt-auto font-sans">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <!-- Left Col: Description -->
+        <div>
+          <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+            <!-- Mini Logo -->
+            <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center p-0.5 shadow-inner">
+              <img src="logofst.png" alt="Logo FST" class="w-full h-full object-contain">
+            </div>
+            PerpusFST
+          </h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Layanan perpustakaan digital resmi Fakultas Sains dan Teknologi UIN Syarif Hidayatullah Jakarta. Memberdayakan civitas akademika melalui akses informasi yang cerdas.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-slate-500 mt-4">
+            <span class="material-symbols-outlined text-[16px] text-amber-500">mail</span>
+            <a href="mailto:perpustakaan@apps.uinjkt.ac.id" class="hover:underline">perpustakaan@apps.uinjkt.ac.id</a>
+          </div>
+        </div>
+        
+        <!-- Middle Col: Quick Links -->
+        <div>
+          <h4 class="text-xs font-extrabold tracking-widest text-slate-400 uppercase mb-4">TAUTAN CEPAT</h4>
+          <ul class="space-y-2 text-xs text-slate-500">
+            <li><a href="#" class="hover:text-amber-500 cursor-pointer" onclick="showToast('Halaman Tentang Kami...', 'info')">About Us</a></li>
+            <li><a href="#" class="hover:text-amber-500 cursor-pointer" onclick="showToast('Hubungi kami di perpustakaan@apps.uinjkt.ac.id', 'info')">Contact Support</a></li>
+            <li><a href="#" class="hover:text-amber-500 cursor-pointer" onclick="showToast('Kebijakan Privasi PerpusFST...', 'info')">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <!-- Right Col: External Services -->
+        <div>
+          <h4 class="text-xs font-extrabold tracking-widest text-slate-400 uppercase mb-4">LAYANAN LUAR</h4>
+          <ul class="space-y-2 text-xs text-slate-500">
+            <li><a href="http://repository.uinjkt.ac.id" target="_blank" class="hover:text-amber-500 flex items-center gap-1 font-semibold">Institutional Repository <span class="material-symbols-outlined text-xs">open_in_new</span></a></li>
+            <li><a href="http://perpus.uinjkt.ac.id" target="_blank" class="hover:text-amber-500 flex items-center gap-1 font-semibold">University Library <span class="material-symbols-outlined text-xs">open_in_new</span></a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Footer Copyright -->
+      <div class="border-t border-slate-100 pt-6 text-center text-xs text-slate-400">
+        © 2026 Faculty of Science and Technology, UIN Syarif Hidayatullah Jakarta. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       TOAST CONTAINER
+       ========================================== -->
+  <div id="toast-container"></div>
+
+  <!-- Custom JavaScript -->
+  <script src="main.js"></script>
+</body>
+</html>
